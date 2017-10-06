@@ -1,0 +1,53 @@
+{% extends 'IABundle::template.html.twig' %}
+{% block contenido %}
+<div>
+
+
+
+
+	{% if Fk|length > 1
+	%}	
+		<table class="table">
+			<tr>
+				<td>{(
+		{% set k=Fk[0].idSubconjunto %}
+		{% set linea=Fk[0].idLinea%}
+
+		{% for fk in Fk %}
+
+				{% if fk.idSubconjunto==k %}
+					{# sigo en la mismo subconjunto #}
+						
+						{% if fk.idLinea==linea %}
+							{# sigo en la misma linea #}
+							{{fk.descripcion}}
+						{% else %}
+							{# cambie de linea #}
+							),(
+							{{" "~fk.descripcion}}
+							{% set linea=fk.idLinea %}
+						{% endif %}
+					
+					
+					
+				{% else %}
+					{# cambie de k #}
+					{# termino el fk #}
+					)}</td>
+					</tr>
+					{# sigo con el sguiente fk #}
+					<tr>
+					<td>{(
+					{{" "~fk.descripcion}}
+					{% set k=fk.idSubconjunto %}
+					{% set linea=fk.idLinea %}	
+				{% endif %}
+		{% endfor %}
+		)}</td>
+		</tr>
+		</table>
+	{% endif %}
+	{{dump(Fk)}}
+</div>
+	
+{% endblock %}

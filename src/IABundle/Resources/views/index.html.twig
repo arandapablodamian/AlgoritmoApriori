@@ -1,0 +1,75 @@
+{% extends 'IABundle::template.html.twig' %}
+{% block contenido %}
+	  <div class="w3-content w3-margin-top" style="max-width:1400px;">
+
+  <!-- The Grid -->
+  		<div class="w3-row-padding">
+			<div class="w3-third">
+			    
+			      <div class="w3-white w3-text-grey w3-card-4">
+
+			        <div class="w3-display-container">
+				         <ul class="list-group">
+				         	{% for prueba in pruebas %}
+	  						<li class="list-group-item">
+
+				         			Prueba N°{{prueba.idprueba}} <br>
+				         			Min Soporte:{{prueba.soporte}} <br>
+				         			Min Confianza: {{prueba.frecuencia}} <br>
+				         		</li>
+				         	{% endfor %}
+						 </ul>
+			        </div>
+			        <div class="w3-container">
+			          
+			        </div>
+			      </div><br>
+
+			    <!-- End Left Column -->
+			    </div>
+
+				<div class="w3-twothird">	
+					<div class="w3-white w3-text-grey w3-card-4">
+						<div style="padding-left:30px;padding-top:30px" >
+							<h4>Ingrese los parametros del algoritmo:</h4>
+							<br>
+					{{ form_start(form) }}
+					    {{ form_errors(form) }}
+
+					    <div>
+					        {{ form_label(form.minSup) }}
+					        {{ form_errors(form.minSup) }}
+					        {{ form_widget(form.minSup,{'attr': {'class': 'form-control','class':'col-md-4'}}) }}
+					    </div>
+					    <br>
+					    <div>
+					        {{ form_label(form.minConf) }}
+					        {{ form_errors(form.minConf) }}
+					        {{ form_widget(form.minConf,{'attr': {'class': 'form-control','class':'col-md-4'}}) }}
+					    </div>
+					    <br>
+					    <div>
+					        {{ form_widget(form.ejecutar) }}
+					    </div>
+
+					{{ form_end(form) }}
+
+					<br>
+					Ultima prueba realizada: 
+						{% if pruebas %}
+							<br>
+								NroPrueba: {{ (pruebas[0].idPrueba) }}
+							<br>
+								Soporte Minimo : {{ (pruebas[0].soporte) }}
+							<br>
+								Confianza Minima: {{ (pruebas[0].frecuencia) }}
+						{% endif %}
+						<br>
+						<br>	<br><br><br><br><br><br><br><br><br>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+{% endblock %}

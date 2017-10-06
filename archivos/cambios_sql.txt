@@ -1,0 +1,65 @@
+//hacer para elementos, pruebas y transacciones
+ALTER TABLE [Elementos] ALTER COLUMN id_elemento INTEGER NOT NULL;
+
+
+
+USE ia2;  
+GO  
+ALTER TABLE Elementos
+ADD CONSTRAINT PK_idElementos PRIMARY KEY CLUSTERED (id_elemento);  
+GO  
+
+////////////////////////////////////////////////////////////
+
+
+// para agregar clave primaria a Subconjuntos
+/*
+   domingo, 1 de octubre de 201715:03:27
+   Usuario: 
+   Servidor: DESKTOP-PJRGEJQ\SQLEXPRESS
+   Base de datos: ia2
+   Aplicación: 
+*/
+
+/* Para evitar posibles problemas de pérdida de datos, debe revisar este script detalladamente antes de ejecutarlo fuera del contexto del diseñador de base de datos.*/
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.Subconjuntos ADD
+	idtable int NOT NULL IDENTITY (1, 1)
+GO
+ALTER TABLE dbo.Subconjuntos ADD CONSTRAINT
+	PK_Subconjuntos PRIMARY KEY CLUSTERED 
+	(
+	idtable
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+ALTER TABLE dbo.Subconjuntos SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+
+
+
+# This file is auto-generated during the composer install
+parameters:
+    driver: pdo_sqlsrv
+    database_host: DESKTOP-PJRGEJQ
+    database_port: 1433
+    database_name: ia2
+    database_user: sa
+    database_password: 123456
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    secret: ThisTokenIsNotSoSecretChangeIt
+    
